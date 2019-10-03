@@ -1,7 +1,8 @@
 import 'package:diziet/platform_channels/constants.dart';
 import 'package:flutter/services.dart';
 
-import 'telephony_channel_messages.dart';
+import 'client_messages.dart';
+import 'host_messages.dart';
 
 /// A wrapper for telephony-related messaging between Flutter and the
 /// host's device-specific code. By telephony we mean message & call-related
@@ -28,7 +29,7 @@ class TelephonyChannel {
 
   TelephonyChannel._() {
     _channel.setMessageHandler((msg) async {
-      final message = TelephonyChannelMessage.fromJson(msg);
+      final message = TelephonyChannelHostMessage.fromJson(msg);
       if (message != null) {
         _publish(message);
       }
@@ -44,11 +45,11 @@ class TelephonyChannel {
   }
 
   /// Send a message object to the host.
-  static void send(TelephonyChannelMessage message) {
+  static void send(TelephonyChannelClientMessage message) {
     _channel.send(message.toJson());
   }
 
-  void _publish(TelephonyChannelMessage message) {
+  void _publish(TelephonyChannelHostMessage message) {
     _listeners.forEach((l) => l.onTelephonyChannelMessage(message));
   }
 }
@@ -57,5 +58,5 @@ class TelephonyChannel {
 /// as listeners for messages coming from the host over the telephony
 /// channel.
 abstract class TelephonyChannelListener {
-  void onTelephonyChannelMessage(TelephonyChannelMessage message);
+  void onTelephonyChannelMessage(TelephonyChannelHostMessage message);
 }

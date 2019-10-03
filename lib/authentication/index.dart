@@ -26,7 +26,7 @@ Future<void> login(String username, String password) async {
 /// Retrieve the main authentication token from Vulgarian.
 Future<String> retrieveVulgarianToken(String username, String password) async {
   // Get the login URL
-  final loginUrl = (await Endpoints.instance).loginUrl;
+  // final loginUrl = (await Endpoints.instance).loginUrl;
   throw UnimplementedError(); // TODO
 }
 

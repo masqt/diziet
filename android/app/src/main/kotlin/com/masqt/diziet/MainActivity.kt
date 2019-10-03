@@ -8,22 +8,28 @@ import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.JSONMessageCodec
 import io.flutter.plugins.GeneratedPluginRegistrant
 
-class MainActivity: FlutterActivity() {
-  private lateinit var messageChannel: BasicMessageChannel<Any>
-  private lateinit var clientMessageListener: ClientMessageListener
+class MainActivity : FlutterActivity() {
+    private lateinit var telephonyPlatformChannelTransceiver: TelephonyPlatformChannelTransceiver
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    GeneratedPluginRegistrant.registerWith(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        GeneratedPluginRegistrant.registerWith(this)
 
-    // Set up our platform channel back to Flutter
-    messageChannel = BasicMessageChannel(
-            flutterView,
-            CHANNEL_NAME_TELEPHONY,
-            JSONMessageCodec.INSTANCE
-    ).also {
-        // Set the message handler
-        it.setMessageHandler {msg, _ -> clientMessageListener.onClientMessage(msg)}
+        // Create a communicator for two-way comms between here and the Flutter client
+        telephonyPlatformChannelTransceiver = TelephonyPlatformChannelTransceiver(this)
     }
-  }
+
+    /**
+     * Perform platform-specific behaviour for answering a call invite
+     */
+    fun answerCallInvite() {
+        TODO("Not implemented yet")
+    }
+
+    /**
+     * Perform platform-specific behaviour for rejecting a call invite
+     */
+    fun rejectCallInvite() {
+        TODO("Not implemented yet")
+    }
 }

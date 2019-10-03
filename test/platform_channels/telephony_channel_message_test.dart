@@ -1,5 +1,5 @@
 import 'package:diziet/platform_channels/constants.dart';
-import 'package:diziet/platform_channels/telephony_channel_messages.dart';
+import 'package:diziet/platform_channels/host_messages.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -20,7 +20,7 @@ void main() {
           },
         };
 
-        final message = TelephonyChannelMessage.fromJson(obj);
+        final message = TelephonyChannelHostMessage.fromJson(obj);
         expect(message.type, equals(MESSAGE_HOST_INCOMING_SMS));
         expect(message.payload['from'], equals(_from));
       });
